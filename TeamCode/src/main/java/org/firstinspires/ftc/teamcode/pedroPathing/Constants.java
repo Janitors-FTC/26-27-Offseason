@@ -4,11 +4,15 @@ import static org.firstinspires.ftc.teamcode.config.RobotConstants.*;
 
 //basic constants rn based on 23511
 
+import com.pedropathing.control.PIDFCoefficients;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.follower.FollowerConstants;
 import com.pedropathing.ftc.FollowerBuilder;
+import com.pedropathing.ftc.drivetrains.CoaxialPod;
 import com.pedropathing.ftc.drivetrains.SwerveConstants;
+import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathConstraints;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Constants {
@@ -25,5 +29,25 @@ public class Constants {
         return new FollowerBuilder(followerConstants, hardwareMap)
                 .pathConstraints(pathConstraints)
                 .build();
+    }
+    private static CoaxialPod leftFront(HardwareMap hardwareMap) {
+        CoaxialPod pod = new CoaxialPod(
+                hardwareMap,
+                "leftFrontMotor", //the name of your motor in your config
+                "leftFrontServo", //the name of your servo in your config
+                "leftFrontEncoder", // the name of your analog encoder in your config
+                new PIDFCoefficients(Proportional, Integral, Derivative, Feedforward), //pod PIDF coefficients
+                DcMotorSimple.Direction.FORWARD, //the direction of your motor
+                DcMotorSimple.Direction.FORWARD, //the direction of your servo
+                Math.toRadians(353.1), //your pod's angle offset, in radians
+                new Pose(dtLength, dtWidth), //your pods x and y offsets,
+                // in pedro coordinates (like with deadwheels)
+                0, //analog min voltage
+        3.3, //analog max voltage
+                false); //encoder inverted
+//  uncomment the below lines to change caching thresholds (by default 0.01)
+//  pod.setMotorCachingThreshold(0.05);
+//  pod.setServoCachingThreshold(0.05);
+        return pod;
     }
 }
