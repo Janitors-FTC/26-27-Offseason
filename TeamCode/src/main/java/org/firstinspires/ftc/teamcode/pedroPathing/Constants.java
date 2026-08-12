@@ -39,8 +39,9 @@ public class Constants {
                 new PIDFCoefficients(Proportional, Integral, Derivative, Feedforward), //pod PIDF coefficients
                 DcMotorSimple.Direction.FORWARD, //the direction of your motor
                 DcMotorSimple.Direction.FORWARD, //the direction of your servo
-                Math.toRadians(353.1), //your pod's angle offset, in radians
-                new Pose(dtLength, dtWidth), //your pods x and y offsets,
+                Math.toRadians(frontLeftPodAngleOffset), //your pod's angle offset, in radians
+                new Pose(frontLeftPodOffsetX, frontLeftPodOffsetY), //your pods x and y offsets,
+
                 // in pedro coordinates (like with deadwheels)
                 0, //analog min voltage
         3.3, //analog max voltage
